@@ -1,5 +1,5 @@
-from models import generate_text
+from agent.model import WorkerLLM
 
 prompt = "Giải thích ngắn gọn về Tree-Wasserstein Distance."
-result = generate_text(prompt)
+result = WorkerLLM().generate(prompt)
 print(result)
