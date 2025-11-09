@@ -4,7 +4,17 @@ import torch.nn as nn
 import torch.nn.functional as F
 from typing import Dict, Tuple
 
-K = 6 
+
+from enum import IntEnum
+
+class AgentAction(IntEnum):
+    """Định nghĩa các hành động rời rạc mà Agent có thể chọn."""
+    PLAN = 0        # Lập dàn ý
+    SEARCH = 1      # Tìm kiếm (trên knowledge_db)
+    WRITE = 2       # Viết một đoạn (draft) mới
+    REVIEW = 3      # Đánh giá (hành động này kích hoạt Debate)
+    EDIT = 4        # Chỉnh sửa (dựa trên feedback)
+    WAIT = 5        # Chờ (quan trọng để tránh xung đột)
 
 class PolicyNet(nn.Module):
     def __init__(self, obs_dim: int, hidden: int = 256):

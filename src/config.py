@@ -22,6 +22,8 @@ AGENT_CONFIG = {
     "toolset": ["search", "summarize"]
 }
 
+NUM_AGENTS = 5
+MAX_ROUNDS = 3
 
 
 
