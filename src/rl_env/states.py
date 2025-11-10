@@ -40,5 +40,5 @@ def get_observation_space() -> spaces.Space:
 
 def get_action_space() -> spaces.Space:
     """Trả về không gian hành động (A) cho PettingZoo."""
-
+ 
     return spaces.Discrete(NUM_ACTIONS)
