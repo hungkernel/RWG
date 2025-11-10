@@ -21,6 +21,8 @@ class Blackboard(BaseModel):
     feedback_history: List[DebateFeedback] = Field(default_factory=list)
     round: int = 0
     max_rounds: int = config.MAX_ROUNDS
+    paper_title: str 
+    abstract: str
 
 def get_observation_space() -> spaces.Space:
     """Trả về cấu trúc không gian quan sát (O) dạng Vector."""
@@ -38,4 +40,5 @@ def get_observation_space() -> spaces.Space:
 
 def get_action_space() -> spaces.Space:
     """Trả về không gian hành động (A) cho PettingZoo."""
+
     return spaces.Discrete(NUM_ACTIONS)
