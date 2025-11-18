@@ -7,18 +7,38 @@ class WorkerLLM:
     def __init__(self):
         self.tokenizer = None
         self.model = None
-        self.load_model() 
+        self.load_model()
 
     def load_model(self):
         path = MODEL_CONFIG["model_path"]
-        dtype = getattr(torch, MODEL_CONFIG.get("dtype", "float16"))
+        # dtype = getattr(torch, MODEL_CONFIG.get("dtype", "float16"))
+        dtype = torch.float32
         device_map = MODEL_CONFIG.get("device_map", "auto")
-        self.tokenizer = AutoTokenizer.from_pretrained(path)
-        self.model = AutoModelForCausalLM.from_pretrained(
-            path,
-            torch_dtype=dtype,
-            device_map=device_map
-        )
+
+        print(f"Loading model from: {path}")
+        try:
+            # Try loading with authentication token if available
+            import os
+            token = os.getenv("HUGGINGFACE_TOKEN", "")
+            kwargs = {"token": token} if token else {}
+
+            self.tokenizer = AutoTokenizer.from_pretrained(path, **kwargs)
+            self.model = AutoModelForCausalLM.from_pretrained(
+                path,
+                dtype=dtype,
+                device_map=device_map,
+                **kwargs
+            )
+            print("Model loaded successfully!")
+        except Exception as e:
+            print(f"Error loading model: {e}")
+            print("\nTroubleshooting:")
+            print("1. If using Hugging Face model ID, ensure you have internet connection")
+            print("2. For Llama models, you may need to:")
+            print("   - Request access at https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct")
+            print("   - Set HUGGINGFACE_TOKEN environment variable")
+            print("   - Or use a local model path in config.py")
+            raise
 
     def generate(self, prompt: str) -> str:
         if not self.model or not self.tokenizer:

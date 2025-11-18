@@ -1,0 +1,15 @@
+[project]
+name = "rwg"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "accelerate>=1.11.0",
+    "gymnasium>=1.2.2",
+    "numpy<2.0.0",
+    "pettingzoo>=1.25.0",
+    "pydantic>=2.12.4",
+    "sentence-transformers>=5.1.2",
+    "torch==2.2.2",
+]
