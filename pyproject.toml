@@ -6,10 +6,11 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "accelerate>=1.11.0",
+    "gpustat>=1.1.1",
     "gymnasium>=1.2.2",
-    "numpy<2.0.0",
+    "numpy>=2.3.5",
     "pettingzoo>=1.25.0",
     "pydantic>=2.12.4",
     "sentence-transformers>=5.1.2",
-    "torch==2.2.2",
+    "torch>=2.9.1",
 ]

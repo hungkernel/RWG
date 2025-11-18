@@ -26,7 +26,11 @@ class Agent:
 
     def get_action_and_value(self, obs_dict: dict, action: int = None):
         x_flat = self.preprocess_obs(obs_dict).unsqueeze(0)
-        logits = self.actor(x_flat)
+        actor_output = self.actor(x_flat)
+        if isinstance(actor_output, tuple):
+            logits = actor_output[0]
+        else:
+            logits = actor_output
         value = self.critic(x_flat)
         dist = torch.distributions.Categorical(logits=logits)
         if action is None:
